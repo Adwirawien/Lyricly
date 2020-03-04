@@ -7,40 +7,43 @@
 //
 
 import SwiftUI
+import Alamofire
+import CodableAlamofire
 
 struct ContentView: View {
     @Environment(\.colorScheme) var colorScheme
     @State var song: String = ""
-    @State var artist: String = ""
-    @State var isModalActive: Bool = true
+    @State var loading: Bool = false
+
+    @State var results: [SearchResult] = []
 
     func change() {
         print(song)
+        if (song.count > 0) {
+            getSongs(query: song)
+        } else {
+            results = []
+        }
+    }
+
+    func getSongs(query: String) {
+        loading = true
+        Alamofire.request("https://api.lyrics.ovh/suggest/\(query.replacingOccurrences(of: " ", with: "%20"))")
+            .responseDecodableObject(keyPath: "data", decoder: JSONDecoder()) { (response: DataResponse<[SearchResult]>) in
+                if (response.error != nil) {
+                    print(response.error)
+                }
+                self.results = response.value!
+                self.loading = false
+        }
     }
 
     var body: some View {
         NavigationView {
-            VStack {
-                VStack {
-                    Caption(name: "SONG")
-                        .padding(.top, CGFloat(20))
-                        .padding(.bottom, CGFloat(-22.5))
-                    TextField("Lone Digger", text: Binding(
-                        get: {
-                            self.song
-                        },
-                        set: { (newValue) in
-                            self.song = newValue
-                            self.change()
-                        }
-                        ))
-                        .padding()
-                        .padding(.top, CGFloat(0))
-                        .padding(.bottom, CGFloat(0))
-                        .textFieldStyle(RoundedBorderTextFieldStyle())
-                        .shadow(color: colorScheme == .dark ? Color.gray.opacity(0.0) : Color.gray.opacity(0.2), radius: CGFloat(10), y: CGFloat(5))
-                }
-                Spacer()
+            List {
+                TextField("Search for a song", text: $song, onEditingChanged: { _ in self.change() })
+                    .textFieldStyle(RoundedBorderTextFieldStyle())
+
                 VStack {
                     Image("image")
                         .resizable()
@@ -50,11 +53,18 @@ struct ContentView: View {
                         .font(.system(size: 15, weight: .regular, design: .rounded))
                         .foregroundColor(Color.gray.opacity(0.8))
                         .padding(.top, -20)
+                    Spacer()
                 }
-                .padding(.bottom, 80)
-                Spacer()
+                    .padding(.bottom, 25)
+
+                ForEach(results) { result in
+                    SongRow(song: result)
+                }
             }
-                .navigationBarTitle(song != "" ? song : "Lyricly")
+                .navigationBarItems(trailing:
+                    Text(loading ? "Loading..." : "").foregroundColor(.gray)
+                )
+                .navigationBarTitle("Lyricly")
         }
     }
 }
