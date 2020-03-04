@@ -20,18 +20,20 @@ struct ContentView: View {
     func change() {
         print(song)
         if (song.count > 0) {
-            getSongs(query: song)
+            getSongs(search: song)
         } else {
             results = []
         }
     }
 
-    func getSongs(query: String) {
+    func getSongs(search: String) {
         loading = true
-        Alamofire.request("https://api.lyrics.ovh/suggest/\(query.replacingOccurrences(of: " ", with: "%20"))")
+        let query = search.addingPercentEncoding(withAllowedCharacters: .urlHostAllowed)
+        Alamofire.request("https://api.lyrics.ovh/suggest/\(query!)")
             .responseDecodableObject(keyPath: "data", decoder: JSONDecoder()) { (response: DataResponse<[SearchResult]>) in
                 if (response.error != nil) {
-                    print(response.error)
+                    print(response.error!)
+                    return
                 }
                 self.results = response.value!
                 self.loading = false

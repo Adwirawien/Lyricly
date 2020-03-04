@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		0F4650EB34EDAA1EEA137E0F /* Pods_Lyricly.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4B141FF15BB8E65995E435BE /* Pods_Lyricly.framework */; };
 		DC0184782410052A00105862 /* SongRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC0184772410052A00105862 /* SongRow.swift */; };
+		DC01847C24101D6400105862 /* Lyrics.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC01847B24101D6400105862 /* Lyrics.swift */; };
 		DC4BC0D0240FE8C90030664C /* SearchResultResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC4BC0CF240FE8C90030664C /* SearchResultResponse.swift */; };
 		DCCD2E7A240BEFAE00068D31 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = DCCD2E79240BEFAE00068D31 /* AppDelegate.swift */; };
 		DCCD2E7C240BEFAE00068D31 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = DCCD2E7B240BEFAE00068D31 /* SceneDelegate.swift */; };
@@ -24,6 +25,7 @@
 		68E62FBA73FDA05B5E21165A /* Pods-Lyricly.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Lyricly.debug.xcconfig"; path = "Target Support Files/Pods-Lyricly/Pods-Lyricly.debug.xcconfig"; sourceTree = "<group>"; };
 		80EB698D08A08D8B39AA307F /* Pods-Lyricly.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Lyricly.release.xcconfig"; path = "Target Support Files/Pods-Lyricly/Pods-Lyricly.release.xcconfig"; sourceTree = "<group>"; };
 		DC0184772410052A00105862 /* SongRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SongRow.swift; sourceTree = "<group>"; };
+		DC01847B24101D6400105862 /* Lyrics.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Lyrics.swift; sourceTree = "<group>"; };
 		DC4BC0CF240FE8C90030664C /* SearchResultResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchResultResponse.swift; sourceTree = "<group>"; };
 		DCCD2E76240BEFAE00068D31 /* Lyricly.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Lyricly.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		DCCD2E79240BEFAE00068D31 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -70,6 +72,7 @@
 			isa = PBXGroup;
 			children = (
 				DC4BC0CF240FE8C90030664C /* SearchResultResponse.swift */,
+				DC01847B24101D6400105862 /* Lyrics.swift */,
 			);
 			path = Codeables;
 			sourceTree = "<group>";
@@ -235,6 +238,7 @@
 			files = (
 				DCCD2E7A240BEFAE00068D31 /* AppDelegate.swift in Sources */,
 				DC0184782410052A00105862 /* SongRow.swift in Sources */,
+				DC01847C24101D6400105862 /* Lyrics.swift in Sources */,
 				DCCD2E7C240BEFAE00068D31 /* SceneDelegate.swift in Sources */,
 				DCCD2E8E240BF66100068D31 /* Caption.swift in Sources */,
 				DC4BC0D0240FE8C90030664C /* SearchResultResponse.swift in Sources */,
