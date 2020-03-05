@@ -18,8 +18,7 @@ struct ContentView: View {
     @State var results: [SearchResult] = []
 
     func change() {
-        print(song)
-        if (song.count > 0) {
+        if (song.count > 1) {
             getSongs(search: song)
         } else {
             results = []
@@ -43,28 +42,38 @@ struct ContentView: View {
     var body: some View {
         NavigationView {
             List {
-                TextField("Search for a song", text: $song, onEditingChanged: { _ in self.change() })
+                TextField("Search for a song", text: Binding(
+                    get: {
+                        self.song
+                    },
+                    set: { (newValue) in
+                        self.song = newValue
+                        self.change()
+                    }
+                    ))
                     .textFieldStyle(RoundedBorderTextFieldStyle())
 
-                VStack {
-                    Image("image")
-                        .resizable()
-                        .aspectRatio(contentMode: .fit)
-                        .padding(.horizontal, CGFloat(20))
-                    Text("🎙 Find the right lyrics")
-                        .font(.system(size: 15, weight: .regular, design: .rounded))
-                        .foregroundColor(Color.gray.opacity(0.8))
-                        .padding(.top, -20)
-                    Spacer()
+                if results.count < 1 {
+                    VStack {
+                        Image("image")
+                            .resizable()
+                            .aspectRatio(contentMode: .fit)
+                            .padding(.horizontal, CGFloat(20))
+                        Text("🎙 Find the right lyrics")
+                            .font(.system(size: 15, weight: .regular, design: .rounded))
+                            .foregroundColor(Color.gray.opacity(0.8))
+                            .padding(.top, -20)
+                        Spacer()
+                    }
+                        .padding(.bottom, 25)
                 }
-                    .padding(.bottom, 25)
 
                 ForEach(results) { result in
                     SongRow(song: result)
                 }
             }
                 .navigationBarItems(trailing:
-                    Text(loading ? "Loading..." : "").foregroundColor(.gray)
+                        Text(loading ? "Loading..." : "").foregroundColor(.gray)
                 )
                 .navigationBarTitle("Lyricly")
         }
